@@ -35,12 +35,12 @@
           <p><%= todo.title %></p>
           <form action="/todos/<%= todo.id%>/completed" method="POST" class="flex items-center justify-center">
             <% if todo.completed %>
-            <button type="submit" class="inline-flex items-center justify-center w-4 h-4 border border-blue-800 rounded-sm bg-blue-400 outline-none focus-visible:outline-indigo-400">
+            <button type="submit" class="inline-flex items-center justify-center w-4 h-4 border border-slate-700 rounded-sm bg-blue-300 outline-none focus-visible:outline-indigo-400">
               ✔
               <input type="checkbox" disabled id="completed" name="completed" class="sr-only">
             </button>
             <% else %>
-            <button type="submit" class="inline-block w-4 h-4 border border-blue-800 rounded-sm outline-none focus-visible:outline-indigo-400">
+            <button type="submit" class="inline-block w-4 h-4 border border-slate-700 rounded-sm outline-none focus-visible:outline-indigo-400">
               <input type="checkbox" disabled checked id="completed" name="completed" class="sr-only">
             </button>
             <% end %>
