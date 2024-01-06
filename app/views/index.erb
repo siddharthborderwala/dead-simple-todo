@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * {
+      font-family: 'Helvetica', sans-serif !important;
+      font-weight: 300;
+    }
+    body {
+      height: 100svh;
+    }
+  </style>
+</head>
+<body class="pt-12">
+  <main class="max-w-[300px] mx-auto">
+    <form action="/todos" method="POST">
+      <input required type="text" name="title" id="title" class="w-full border-b border-gray-400 rounded-none px-2 py-1 outline-none focus-visible:border-b-2 focus-visible:border-indigo-400">
+      <p class="text-xs text-gray-700 mt-2 italic">Press <kbd class="text-gray-900 font-medium">Enter</kbd> to submit</p>
+    </form>
+
+    <ul class="mt-6">
+      <h2 class="text-lg font-bold mb-2 italic">
+        <% if @todos.length > 0 %>
+          Todos
+        <% else %>
+          No todos yet
+        <% end %>
+      </h2>
+      <% @todos.each do |todo| %>
+        <li class="w-full flex items-center justify-between">
+          <p><%= todo.title %></p>
+          <form action="/todos/<%= todo.id%>/completed" method="POST" class="flex items-center justify-center">
+            <% if todo.completed %>
+            <button type="submit" class="inline-flex items-center justify-center w-4 h-4 border border-blue-800 rounded-sm bg-blue-400 outline-none focus-visible:outline-indigo-400">
+              ✔
+              <input type="checkbox" disabled id="completed" name="completed" class="sr-only">
+            </button>
+            <% else %>
+            <button type="submit" class="inline-block w-4 h-4 border border-blue-800 rounded-sm outline-none focus-visible:outline-indigo-400">
+              <input type="checkbox" disabled checked id="completed" name="completed" class="sr-only">
+            </button>
+            <% end %>
+          </form>
+        </li>
+      <% end %>
+    </ul>
+  </main>
+  <footer class="max-w-[300px] mx-auto my-12">
+    <small class="text-gray-700">
+      &copy; <%= Time.now.year %> Siddharth Borderwala
+    </small>
+  </footer>
+  <script>
+    document.addEventListener('keydown', () => {
+      // if / is pressed, focus on the input if it's not already focused
+      if (event.key === '/') {
+        const input = document.querySelector('#title');
+        if (document.activeElement !== input) {
+          setTimeout(() => {
+            input.focus();
+          }, 0);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
